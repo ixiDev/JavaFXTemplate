@@ -34,7 +34,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Package Debian App
-        run: ./gradlew jpackage
+        run: ./gradlew clean jpackage --stacktrace --info
 
       - name: Upload Debian Package
         uses: xresloader/upload-to-github-release@master
@@ -73,7 +73,7 @@ jobs:
       - name: Package win App
         uses: gradle/gradle-build-action@v1
         with:
-          arguments: jpackage
+          arguments: clean jpackage --stacktrace --info
 
       - name: Upload win package
         uses: xresloader/upload-to-github-release@master
