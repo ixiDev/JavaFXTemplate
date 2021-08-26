@@ -41,7 +41,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          file: "./target/dist/*"
+          file: "./build/dist/*"
           tags: true
           draft: false
           verbose: false
@@ -80,7 +80,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          file: "./target/dist/*"
+          file: "./build/dist/*"
           tags: true
           draft: false
           verbose: false
