@@ -1,0 +1,86 @@
+name: Release
+
+on:
+  push:
+    branches: [ master ]
+    tags:
+      - 'v*'
+
+jobs:
+  release-ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+    
+      - name : Checkout
+        uses: actions/checkout@v2
+      
+      - name: Setup JDK 16
+        uses: joschi/setup-jdk@v2
+        with:
+          java-version: '16'
+      
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+      
+          
+          
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Package Debian App
+        run: ./gradlew jpackage
+
+      - name: Upload Debian Package
+        uses: xresloader/upload-to-github-release@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          file: "./target/dist/*"
+          tags: true
+          draft: false
+          verbose: false
+          release_name: ${{ github.ref }}
+          release_tag_name: ${{ github.ref }}
+
+
+  release-win:
+    runs-on: windows-latest
+    steps:
+      - name : Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup JDK 16
+        uses: joschi/setup-jdk@v2
+        with:
+          java-version: '16'
+          
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+            
+
+      - name: Package win App
+        run:  gradlew.bat jpackage
+
+      - name: Upload win package
+        uses: xresloader/upload-to-github-release@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          file: "./target/dist/*"
+          tags: true
+          draft: false
+          verbose: false
+          release_name: ${{ github.ref }}
+          release_tag_name: ${{ github.ref }}
