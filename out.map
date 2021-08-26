@@ -1,0 +1,11 @@
+com.example.testobfuscationapp.HelloApplication -> a:
+    8:8:void <init>() -> <init>
+    10:15:void start(javafx.stage.Stage) -> start
+com.example.testobfuscationapp.HelloApplicationKt -> com.example.testobfuscationapp.HelloApplicationKt:
+    19:20:void main() -> a
+    void main(java.lang.String[]) -> main
+com.example.testobfuscationapp.HelloController -> b:
+    javafx.scene.control.Label welcomeText -> welcomeText
+    6:6:void <init>() -> <init>
+    12:13:void onHelloButtonClick() -> onHelloButtonClick
+module-info -> module-info:
