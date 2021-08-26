@@ -71,7 +71,9 @@ jobs:
             
 
       - name: Package win App
-        run:  gradlew jpackage
+        uses: gradle/gradle-build-action@v1
+        with:
+          arguments: jpackage
 
       - name: Upload win package
         uses: xresloader/upload-to-github-release@master
