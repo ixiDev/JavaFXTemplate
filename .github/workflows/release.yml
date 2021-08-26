@@ -71,7 +71,7 @@ jobs:
             
 
       - name: Package win App
-        run:  gradlew.bat jpackage
+        run:  gradlew jpackage
 
       - name: Upload win package
         uses: xresloader/upload-to-github-release@master
